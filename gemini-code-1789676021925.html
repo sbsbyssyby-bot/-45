@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام تدريبات المطاردات والتحديثات | عسكر ديترويت</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
+        :root {
+            --bg-deep: #05070b;
+            --bg-card: #111827;
+            --bg-card-hover: #1f2937;
+            --accent: #f59e0b;
+            --accent-glow: rgba(245, 158, 11, 0.4);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --danger: #ef4444;
+            --success: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(245, 158, 11, 0.04) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 40%);
+            color: var(--text-main);
+            line-height: 1.8;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* رأس الصفحة بتصميم 3D ثابت ونظيف */
+        header {
+            text-align: center;
+            background: linear-gradient(135deg, #111827 0%, #05070b 100%);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px var(--accent-glow);
+        }
+
+        .logo-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #000;
+            font-weight: 900;
+            font-size: 30px;
+            padding: 10px 30px;
+            border-radius: 50px;
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+        }
+
+        header h1 {
+            font-size: 32px;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+
+        header h2 {
+            font-size: 18px;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* بطاقات مستقرة مريحة للعين بدون لخبطة */
+        .section {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            background-color: var(--bg-card-hover);
+            border-color: rgba(245, 158, 11, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 15px rgba(245, 158, 11, 0.15);
+        }
+
+        .section h3 {
+            color: var(--accent);
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-right: 0;
+        }
+
+        li {
+            position: relative;
+            padding-right: 25px;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        li strong {
+            color: var(--text-main);
+        }
+
+        li::before {
+            content: "⚡";
+            color: var(--accent);
+            position: absolute;
+            right: 0;
+            font-size: 13px;
+            top: 2px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.12), rgba(15, 23, 42, 0.7));
+            border-right: 5px solid var(--danger);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .highlight-box h4 {
+            color: var(--danger);
+            margin-bottom: 8px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* لوحة الاختبارات */
+        .quiz-container {
+            background: linear-gradient(145deg, #111827, #0d1322);
+            border: 2px dashed var(--accent);
+            border-radius: 16px;
+            padding: 35px;
+            margin-top: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        }
+
+        .quiz-question {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-btn {
+            background-color: #1f2937;
+            color: var(--text-main);
+            border: 1px solid #374151;
+            padding: 14px 20px;
+            border-radius: 10px;
+            text-align: right;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .quiz-btn:hover {
+            background-color: #374151;
+            border-color: var(--accent);
+        }
+
+        .quiz-btn.correct {
+            background-color: rgba(16, 185, 129, 0.25) !important;
+            border-color: var(--success) !important;
+            color: #34d399 !important;
+        }
+
+        .quiz-btn.wrong {
+            background-color: rgba(239, 68, 68, 0.25) !important;
+            border-color: var(--danger) !important;
+            color: #f87171 !important;
+        }
+
+        .quiz-feedback {
+            margin-top: 10px;
+            font-weight: 700;
+            font-size: 15px;
+            min-height: 25px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--text-muted);
+            font-size: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- رأس الصفحة -->
+        <header>
+            <div class="logo-badge">NC</div>
+            <h1>نظام تدريبات المطاردات والتحديثات داخل الراديو</h1>
+            <h2>المسؤول والمدرب: عسكر ديترويت</h2>
+        </header>
+
+        <!-- تعريف المطاردات -->
+        <div class="section">
+            <h3>📌 تعريف المطاردات والتهديدات</h3>
+            <p>المطاردة هي عملية أمنية تكتيكية لملاحقة مشتبه به هارب (سواء في قضايا <strong>جنائية</strong> أو <strong>سرقة</strong>)، بهدف فرض السيطرة الأمنية التامة والقبض عليه وفق أطر احترافية تحافظ على السلامة العامة.</p>
+        </div>
+
+        <!-- القواعد الأساسية للمطاردة -->
+        <div class="section">
+            <h3>⚡ القواعد الأساسية للمطاردة</h3>
+            <ul>
+                <li><strong>التزام المسافة:</strong> الحفاظ المستمر على مسافة أمان كافية بينك وبين المركبة المطاردة.</li>
+                <li><strong>التنسيق بين الوحدات:</strong> تنظيم العمل والتواصل المشترك بين الدوريات المشاركة بالحالة.</li>
+                <li><strong>تغيير الموجة:</strong> مغادرة الموجة الأساسية (موجة رقم واحد) فوراً والتوجه إلى <strong>موجة الحالة</strong> لتنظيم التنسيق بشكل صحيح بين الوحدات.</li>
+                <li><strong>إدارة المسافات:</strong> المحافظة على تنظيم دقيق للمسافات بين السيارات الأمنية.</li>
+            </ul>
+        </div>
+
+        <!-- استلام المسؤولية وتوزيع الوحدات -->
+        <div class="section grid-2">
+            <div>
+                <h3>📋 استلام المسؤولية</h3>
+                <ul>
+                    <li>استلام قيادة وتوجيه الحالة بمهنية عالية.</li>
+                    <li>تحديد نوع الهروب بدقة (مركبة سريعة، دراجة نارية، وحدة جبلية، أو دورية عادية).</li>
+                </ul>
+            </div>
+            <div>
+                <h3>👥 توزيع الوحدات والأدوار</h3>
+                <ul>
+                    <li><strong>المطارد الأول:</strong> الملاحق المباشر للهدف.</li>
+                    <li><strong>المطارد الثاني والثالث:</strong> الإسناد والتغطية الخلفية.</li>
+                    <li><strong>وحدة الدعم:</strong> التدخل السريع وتأمين المحيط.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- استخدام الجلابر والتكتيكات -->
+        <div class="section">
+            <h3>🛡️ استخدام الجلابر والسيطرة</h3>
+            <ul>
+                <li><strong>التوقيت الزمني:</strong> التأكد من اكتمال <strong>3 دقائق كاملة</strong> من المطاردة.</li>
+                <li><strong>الإذن المسبق:</strong> يُشترط الحصول على إذن من مسؤول الحالة أو أعلى رتبة متواجدة.</li>
+                <li><strong>التغطية الرباعية:</strong> المباشرة بالاستخدام بعد الإغلاق من الأمام والسيطرة الكاملة من <strong>الجانب الأيمن، الأيسر، الأمام، والخلف</strong>.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h4>⚠️ ضوابط صارمة (منع المخالفات والتصادم):</h4>
+                <p>يُمنع منعاً باتاً تصادم المركبات أو استخدام الجلابر في غير وقتها المحدد. يُسمح باستخدام الجلابر للضرورة القصوى (إذا كان المشتبه به يصدم المواطنين)، وفي حال عجزت عن السيطرة به، يتم <strong>تيزرت الكفرات</strong> فوراً.</p>
+            </div>
+        </div>
+
+        <!-- التحديثات عبر الراديو -->
+        <div class="section">
+            <h3>📻 نظام التحديثات عبر الراديو</h3>
+            <ul>
+                <li><strong>الزمن الإلزامي:</strong> تحديث الإحداثيات عبر الراديو <strong>كل 10 ثوانٍ</strong> بانتظام.</li>
+                <li><strong>رصد التموضع:</strong> إبلاغ الدوريات فوراً عن مسار المركبة (أماكن ضيقة، صعود الجبال، أو التوجه لمناطق محددة).</li>
+                <li><strong>التركيز العالي:</strong> نقل المعلومات بدقة وسرعة لباقي الوحدات لتسهيل عملية التتبع.</li>
+            </ul>
+        </div>
+
+        <!-- انتهاء الحالة -->
+        <div class="section">
+            <h3>🏁 إنهاء الحالة والقبض</h3>
+            <ul>
+                <li>بمجرد إتمام القبض والسيطرة، يجب على العساكر مباشرة التواجد في <strong>موجة الحالة</strong>.</li>
+                <li>بعد ذلك، يتوجه مسؤول الحالة إلى <strong>موجة رقم واحد</strong> لإبلاغهم بأنه تمت السيطرة للاطمئنان واستكمال باقي الإجراءات.</li>
+            </ul>
+        </div>
+
+        <!-- قسم اختبارات المدرب عسكر ديترويت (5 أسئلة) -->
+        <div class="quiz-container">
+            <h3 style="color: var(--accent); margin-bottom: 20px; border-bottom: none;">🎯 لوحة اختبارات المدرب (عسكر ديترويت) لتقييم العساكر</h3>
+            
+            <div id="quiz-box">
+                <!-- سيتم توليد الأسئلة ديناميكياً عبر الجافاسكريبت -->
+            </div>
+        </div>
+
+        <!-- الفوتر -->
+        <footer>
+            <p>جميع الحقوق محفوظة © نظام تدريبات المطاردات - إشراف المدرب عسكر ديترويت | شعار NC</p>
+            <p>الالتزام التام بالتعليمات عصب الانضباط العسكري.</p>
+        </footer>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "1. بصفتك المدرب عسكر ديترويت، اسأل العسكري: ما هي المدة الزمنية المطلوبة لإتمام المطاردة قبل البدء في استخدام الجلابر؟",
+                options: ["دقيقة واحدة", "3 دقائق", "5 دقائق", "10 دقائق"],
+                correct: 1
+            },
+            {
+                question: "2. بصفتك المدرب عسكر ديترويت، اسأل العسكري: كم مرة يجب عليك تحديث إحداثيات الحالة عبر الراديو؟",
+                options: ["كل 5 ثواني", "كل 10 ثواني", "كل نصف دقيقة", "عند الطلب فقط"],
+                correct: 1
+            },
+            {
+                question: "3. بصفتك المدرب عسكر ديترويت، اسأل العسكري: ما هي الموجة التي يجب الانتقال إليها لتنسيق الوحدات؟",
+                options: ["موجة الحالة", "موجة رقم واحد"],
+                correct: 0
+            },
+            {
+                question: "4. بصفتك المدرب عسكر ديترويت، اسأل العسكري: من هو المخول بإعطاء الإذن لاستخدام الجلابر؟",
+                options: ["أي عسكري جديد", "مسؤول الحالة أو أعلى رتبة متواجدة", "المشتبه به نفسه", "لا يحتاج إذن"],
+                correct: 1
+            },
+            {
+                question: "5. بصفتك المدرب عسكر ديترويت، اسأل العسكري: ماذا تفعل في حال عدم القدرة على السيطرة بالجلابر؟",
+                options: ["ترك المطاردة", "صدم مركبة الهارب عمداً", "تيزرت الكفرات (تعطيل الإطارات)", "إيقاف الراديو"],
+                correct: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const quizBox = document.getElementById("quiz-box");
+
+        function loadQuestion() {
+            if (currentQuestion < quizData.length) {
+                const q = quizData[currentQuestion];
+                let optionsHTML = '';
+                q.options.forEach((opt, index) => {
+                    optionsHTML += `<button class="quiz-btn" onclick="checkAnswer(${index}, ${q.correct})">${opt}</button>`;
+                });
+
+                quizBox.innerHTML = `
+                    <div class="quiz-question">${q.question}</div>
+                    <div class="quiz-options">${optionsHTML}</div>
+                    <div class="quiz-feedback" id="feedback"></div>
+                `;
+            } else {
+                quizBox.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <h3 style="color: var(--success); margin-bottom: 10px;">🎉 انتهى الاختبار بنجاح يا مدرب!</h3>
+                        <p style="font-size: 18px; color: #fff;">اجتاز العسكري الاختبار بنجاح وأجاب على ${score} من أصل ${quizData.length} أسئلة.</p>
+                        <button class="quiz-btn" style="margin-top: 20px; background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; font-weight: bold; width: 100%;" onclick="restartQuiz()">إعادة الاختبار لعسكري آخر</button>
+                    </div>
+                `;
+            }
+        }
+
+        function checkAnswer(selected, correct) {
+            const buttons = document.querySelectorAll('.quiz-btn');
+            const feedback = document.getElementById('feedback');
+
+            let isCorrect = (currentQuestion === 2) ? (selected === 0) : (selected === correct);
+
+            buttons.forEach((btn, idx) => {
+                btn.disabled = true;
+                if (currentQuestion === 2) {
+                    if (idx === 0) btn.classList.add('correct');
+                    else if (idx === selected) btn.classList.add('wrong');
+                } else {
+                    if (idx === correct) {
+                        btn.classList.add('correct');
+                    } else if (idx === selected) {
+                        btn.classList.add('wrong');
+                    }
+                }
+            });
+
+            if (isCorrect) {
+                feedback.innerHTML = "✅ إجابة العسكري صحيحة وكفو!";
+                feedback.style.color = "var(--success)";
+                score++;
+            } else {
+                feedback.innerHTML = "❌ إجابة العسكري خاطئة، يحتاج إلى إعادة التدريب (التنسيق يكون في موجة الحالة).";
+                feedback.style.color = "var(--danger)";
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+                loadQuestion();
+            }, 2000);
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            loadQuestion();
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
